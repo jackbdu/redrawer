@@ -16,14 +16,18 @@ function setup() {
 function draw() {
   stroke(255);
   strokeWeight(5);
-  if (mouseIsPressed) {
+  if (mouseIsPressed && !onload) {
     line(pmouseX, pmouseY, mouseX, mouseY);
     points.push({x: mouseX, y:mouseY});
+  } else if (touchIsDown) {
+    line(ptouchX, ptouchY, touchX, touchY);
+    points.push({x: touchX, y:touchY});
   } else {
     points = [];
   }
 
   if (onload) {
+    smooth();
     for (var j = 0; j < shapes.length; j++) {
       for (var i = 1; i < shapes[j].length; i++) {
         line(shapes[j][i-1].x, shapes[j][i-1].y, shapes[j][i].x, shapes[j][i].y);
@@ -33,7 +37,9 @@ function draw() {
 }
 
 function mouseReleased() {
-  shapes.push(points);
+  if (points =! []) {
+    shapes.push(points);
+  }
 }
 
 function keyPressed() {
