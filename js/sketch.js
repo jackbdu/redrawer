@@ -26,7 +26,7 @@ function draw() {
   if (onload) {
     for (var j = 0; j < shapes.length; j++) {
       for (var i = 1; i < shapes[j].length; i++) {
-        line(shapes[j][i-1].x, shapes[j][i-1].y+200, shapes[j][i].x, shapes[j][i].y+200);
+        line(shapes[j][i-1].x, shapes[j][i-1].y, shapes[j][i].x, shapes[j][i].y);
       }
     }
   }
@@ -41,21 +41,6 @@ function keyPressed() {
 }
 
 function keyTyped() {
-  if (key === 'l') {
-    shapesRef.on("value", function(snapshot) {
-      var drawings = snapshot.val();
-      for (var key in drawings) {
-        if (key === "-Jr6imqPr6VYqfuPGdoM") {
-          shapes = drawings[key].shapes;
-          console.log("what");
-        }
-      }
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
-
-    onload = true;
-  }
 }
 
 function keyReleased() {
