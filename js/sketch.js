@@ -5,17 +5,21 @@ var points = [];
 var viewerMode = false;
 var i = 0;
 var j = 1;
+var clear = true;
 
 var ref = new Firebase("redrawer.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
 function setup() {
   createCanvas(w, h);
-  background(0);
   smooth();
 }
 
 function draw() {
+  if (clear) {
+    background(0);
+    clear = false;
+  }
   stroke(255);
   strokeWeight(5);
   if (mouseIsPressed && !viewerMode) {
@@ -52,23 +56,13 @@ function mouseReleased() {
   }
 }
 
-function keyPressed() {
-
-}
-
-function keyTyped() {
-}
-
-function keyReleased() {
-
-}
-
-function uploadShapes(shapes) {
-
-}
-
 function share() {
   var newShapesRef = shapesRef.push();
   newShapesRef.set({shapes: shapes});
   alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
+}
+
+function clearAll() {
+  clear = true;
+  shapes = [];
 }
