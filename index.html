@@ -9,9 +9,8 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="HandheldFriendly" content="True">
         <!-- <meta name="MobileOptimized" content="640"> -->
-        <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-
-		<meta name=viewport content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link href="css/picnic.min.css" rel="stylesheet">
 		<script src="http://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
 		<script src="js/p5.min.js"></script>
 		<script src="js/sketch.js"></script>
@@ -23,11 +22,35 @@
 		header {
 			background-color: rgba(250,250,250,0.9);
 			color:black;
-			height:2em;
-			padding:0.5em;
+			height:45px;
+			padding:5px;
 			position:fixed;
 			top:0;
 			width:100%;
+		}
+		span {
+			margin: 10px 5px;
+			/*position: fixed;*/
+			display: inline-block;
+		}
+		.btn {
+		  margin-top: 20px;
+		  -webkit-border-radius: 5;
+		  -moz-border-radius: 5;
+		  border-radius: 5px;
+		  font-family: Arial;
+		  color: #ffffff;
+		  font-size: 20px;
+		  background: #3498db;
+		  padding: 10px 20px 10px 20px;
+		  text-decoration: none;
+		  top: 5px;
+		}
+
+		.btn:hover {
+		  background: #3cb0fd;
+		  text-decoration: none;
+		  cursor: hand;
 		}
 		</style>
 	</head>
@@ -35,7 +58,13 @@
 	<body>
 	<header>
 		<span>
-			<button onclick="share()">Share</button>
+			<a class="btn" onclick="share();">Share</a>
+		</span>
+		<span>
+			<a class="btn" onclick="clearAll();">Clear</a>
+		</span>
+		<span>
+			<a class="btn" onclick="toggleBackground();">Background</a>
 		</span>
 	</header>
 	</body>

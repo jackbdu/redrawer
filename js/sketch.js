@@ -5,19 +5,35 @@ var points = [];
 var viewerMode = false;
 var i = 0;
 var j = 1;
+var clear = true;
+var bgColor = 0;
+var bgChanged = false;
+var weight = 5;
+var increase = true;
 
 var ref = new Firebase("redrawer.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
 function setup() {
   createCanvas(w, h);
-  background(0);
   smooth();
 }
 
 function draw() {
-  stroke(255);
-  strokeWeight(5);
+  if (clear) {
+    background(bgColor);
+    clear = false;
+  }
+  stroke(255-bgColor);
+  strokeWeight(weight);
+  if (bgChanged) {
+    for (var i = 0; i < shapes.length; i++) {
+      for (var j = 1; j < shapes[i].length; j++) {
+        line(shapes[i][j-1].x, shapes[i][j-1].y, shapes[i][j].x, shapes[i][j].y);
+      }
+    }
+    bgChanged = false;
+  }
   if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
       line(pmouseX, pmouseY, mouseX, mouseY);
@@ -31,6 +47,7 @@ function draw() {
   } else {
     points = [];
   }
+
   if (viewerMode) {
 
     smooth();
@@ -52,23 +69,23 @@ function mouseReleased() {
   }
 }
 
-function keyPressed() {
-
-}
-
-function keyTyped() {
-}
-
-function keyReleased() {
-
-}
-
-function uploadShapes(shapes) {
-
-}
-
 function share() {
   var newShapesRef = shapesRef.push();
-  newShapesRef.set({shapes: shapes});
+  newShapesRef.set({shapes: shapes, background: bgColor});
   alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
+}
+
+function clearAll() {
+  clear = true;
+  shapes = [];
+}
+
+function toggleBackground() {
+  if (bgColor == 0) {
+    bgColor = 255;
+  } else {
+    bgColor = 0;
+  }
+  bgChanged = true;
+  clear = true;
 }
