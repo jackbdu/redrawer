@@ -23,16 +23,16 @@
         var drawings = snapshot.val();
         for (var key in drawings) {
           if (key === drawingId) {
-            clear = true;
             shapes = drawings[key].shapes;
             bgColor = drawings[key].bgColor;
+            clear = true;
+            viewerMode = true;
+            console.log(shapes);
           }
         }
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
-
-      viewerMode = true;
     }
   </script>
   
