@@ -71,7 +71,7 @@ function mouseReleased() {
 
 function share() {
   var newShapesRef = shapesRef.push();
-  newShapesRef.set({shapes: shapes, background: bgColor});
+  newShapesRef.set({shapes: shapes, bgColor: bgColor});
   alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
 }
 
