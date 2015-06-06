@@ -19,11 +19,15 @@ function draw() {
   stroke(255);
   strokeWeight(5);
   if (mouseIsPressed && !onload) {
-    line(pmouseX, pmouseY, mouseX, mouseY);
-    points.push({x: mouseX, y:mouseY});
+    if !(pmouseX === 0 && pmouseY === 0) {
+      line(pmouseX, pmouseY, mouseX, mouseY);
+      points.push({x: mouseX, y:mouseY});
+    }
   } else if (touchIsDown) {
-    line(ptouchX, ptouchY, touchX, touchY);
-    points.push({x: touchX, y:touchY});
+    if !(ptouchX === 0 && ptouchY === 0) {
+      line(ptouchX, ptouchY, touchX, touchY);
+      points.push({x: touchX, y:touchY});
+    }
   } else {
     points = [];
   }
