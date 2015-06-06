@@ -36,9 +36,6 @@ function draw() {
   strokeWeight(weight);
   if (bgChanged) {
     for (var k = 0; k < shapes.length; k++) {
-      strokeN = shapes[k][-1];
-      console.log(strokeN);
-      stroke(strokeColors[strokeN]);
       for (var l = 1; l < shapes[k].length; l++) {
         line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
       }
@@ -57,14 +54,11 @@ function draw() {
     }
   } else {
     points = [];
-    points[-1] = strokeN;
   }
 
   if (viewerMode) {
     smooth();
     if (i < shapes.length) {
-      strokeN = shapes[i][-1];
-      stroke(strokeColors[strokeN]);
       if (j < shapes[i].length) {
         line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
         j++;
