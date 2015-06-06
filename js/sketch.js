@@ -27,9 +27,9 @@ function draw() {
   stroke(255-bgColor);
   strokeWeight(weight);
   if (bgChanged) {
-    for (var i = 0; i < shapes.length; i++) {
-      for (var j = 1; j < shapes[i].length; j++) {
-        line(shapes[i][j-1].x, shapes[i][j-1].y, shapes[i][j].x, shapes[i][j].y);
+    for (var k = 0; k < shapes.length; k++) {
+      for (var l = 1; l < shapes[k].length; l++) {
+        line(shapes[k][l-1].x, shapes[k][l-1].y, shapes[k][l].x, shapes[k][l].y);
       }
     }
     bgChanged = false;
@@ -49,10 +49,10 @@ function draw() {
   }
 
   if (viewerMode) {
-
     smooth();
     if (i < shapes.length) {
       if (j < shapes[i].length) {
+        println("aa");
         line(shapes[i][j-1].x, shapes[i][j-1].y, shapes[i][j].x, shapes[i][j].y);
         j++;
       } else {
