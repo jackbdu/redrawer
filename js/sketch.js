@@ -10,11 +10,19 @@ var bgColor = 0;
 var bgChanged = false;
 var weight = 5;
 var increase = true;
+var strokeColors;
+var strokeN = 0;
 
 var ref = new Firebase("redrawer.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
 function setup() {
+  var redColor = color(255, 0, 0);
+  var greenColor = color(0, 255, 0);
+  var blueColor = color(0, 0, 255);
+  var darkGray = color(50, 50, 50);
+  var lightGray = color(200, 200, 200);
+  strokeColors = new Array(lightGray, darkGray, redColor, greenColor, blueColor);
   createCanvas(w, h);
   smooth();
 }
@@ -24,10 +32,13 @@ function draw() {
     background(bgColor);
     clear = false;
   }
-  stroke(255-bgColor);
+  stroke(strokeColors[strokeN]);
   strokeWeight(weight);
   if (bgChanged) {
     for (var k = 0; k < shapes.length; k++) {
+      strokeN = shapes[k][-1];
+      console.log(strokeN);
+      stroke(strokeColors[strokeN]);
       for (var l = 1; l < shapes[k].length; l++) {
         line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
       }
@@ -46,13 +57,15 @@ function draw() {
     }
   } else {
     points = [];
+    points[-1] = strokeN;
   }
 
   if (viewerMode) {
     smooth();
     if (i < shapes.length) {
+      strokeN = shapes[i][-1];
+      stroke(strokeColors[strokeN]);
       if (j < shapes[i].length) {
-        println("aa");
         line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
         j++;
       } else {
@@ -99,4 +112,12 @@ function toggleBackground() {
   }
   bgChanged = true;
   clear = true;
+}
+
+function toggleColor() {
+  if (strokeN < strokeColors.length - 1) {
+    strokeN++;
+  } else {
+    strokeN = 0;
+  }
 }
