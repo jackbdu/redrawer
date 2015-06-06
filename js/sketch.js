@@ -3,6 +3,8 @@ var h = window.innerHeight;
 var shapes = [];
 var points = [];
 var onload = false;
+var i = 0;
+var j = 1;
 
 var ref = new Firebase("redrawer.firebaseIO.com");
 var shapesRef = ref.child("drawings");
@@ -28,9 +30,13 @@ function draw() {
 
   if (onload) {
     smooth();
-    for (var j = 0; j < shapes.length; j++) {
-      for (var i = 1; i < shapes[j].length; i++) {
-        line(shapes[j][i-1].x, shapes[j][i-1].y, shapes[j][i].x, shapes[j][i].y);
+    if (i < shapes.length) {
+      if (j < shapes[i].length) {
+        line(shapes[i][j-1].x, shapes[i][j-1].y, shapes[i][j].x, shapes[i][j].y);
+        j++;
+      } else {
+        i++;
+        j = 1;
       }
     }
   }
