@@ -14,7 +14,7 @@ var increase = true;
 var strokeColors;
 var strokeN = 0;
 var effectN = 0;
-var done = false;
+var view = false;
 
 var ref = new Firebase("redraw.firebaseIO.com");
 var shapesRef = ref.child("drawings");
@@ -60,9 +60,9 @@ function draw() {
     points = [];
   }
 
-  if (viewerMode || done) {
+  if (viewerMode || view) {
     smooth();
-    if (i < shapes.length && !done) {
+    if (i < shapes.length && !view) {
       stroke(strokeColors[colors[i]]);
       if (j < shapes[i].length) {
         line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
@@ -85,12 +85,20 @@ function draw() {
           weight -= 0.1;
         }
       } else {
-
+        weight = 5;
       }
       for (var k = 0; k < shapes.length; k++) {
         stroke(strokeColors[colors[k]]);
         for (var l = 1; l < shapes[k].length; l++) {
-          line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
+          var x1 = shapes[k][l-1].x*w;
+          var y1 = shapes[k][l-1].y*h;
+          var x2 = shapes[k][l].x*w;
+          var y2 = shapes[k][l].y*h;
+          line(x1, y1, x2, y2);
+          if (effectN === 1) {
+            ellipse(x1+random(4)-random(4), y1+random(4)-random(4), 2+random(2), 2+random(2));
+            ellipse(x2+random(4)-random(4), y2+random(4)-random(4), 2+random(2), 2+random(2));
+          }
         }
       }
     }
@@ -102,6 +110,11 @@ function mouseReleased() {
     shapes.push(points);
     colors.push(strokeN);
   }
+}
+
+function mousePressed() {
+  pmouseX = mouseX;
+  pmouseY = mouseY;
 }
 
 function touchEnded() {
@@ -146,8 +159,8 @@ function changeColor() {
   }
 }
 
-function drawingDone() {
-  done = true;
+function viewEdit() {
+  view = !view;
 }
 
 function changeEffect() {
