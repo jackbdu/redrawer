@@ -4,6 +4,9 @@ var shapes = [];
 var points = [];
 var onload = false;
 
+var ref = new Firebase("redrawer.firebaseIO.com");
+var shapesRef = ref.child("drawings");
+
 function setup() {
   createCanvas(w, h);
   background(0);
@@ -30,7 +33,7 @@ function draw() {
 }
 
 function mouseReleased() {
-  // shapes.push(points);
+  shapes.push(points);
 }
 
 function keyPressed() {
@@ -39,12 +42,14 @@ function keyPressed() {
 
 function keyTyped() {
   if (key === 'u') {
-    uploadShapes(shapes);
+    var newShapesRef = shapesRef.push();
+    newShapesRef.set({shapes: shapes});
+    console.log(newShapesRef.path.o[1]);
   } else if (key === 'l') {
     shapesRef.on("value", function(snapshot) {
       var drawings = snapshot.val();
       for (var key in drawings) {
-        if (key === "-Jr6_ryP1ErCiU_7MQtp") {
+        if (key === "-Jr6imqPr6VYqfuPGdoM") {
           shapes = drawings[key].shapes;
           console.log("what");
         }
@@ -58,5 +63,9 @@ function keyTyped() {
 }
 
 function keyReleased() {
+
+}
+
+function uploadShapes(shapes) {
 
 }
