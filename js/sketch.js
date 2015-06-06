@@ -13,6 +13,8 @@ var weight = 5;
 var increase = true;
 var strokeColors;
 var strokeN = 0;
+var effectN = 0;
+var done = false;
 
 var ref = new Firebase("redraw.firebaseIO.com");
 var shapesRef = ref.child("drawings");
@@ -58,9 +60,9 @@ function draw() {
     points = [];
   }
 
-  if (viewerMode) {
+  if (viewerMode || done) {
     smooth();
-    if (i < shapes.length) {
+    if (i < shapes.length && !done) {
       stroke(strokeColors[colors[i]]);
       if (j < shapes[i].length) {
         line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
@@ -71,15 +73,19 @@ function draw() {
       }
     } else {
       background(bgColor);
-      if (weight > 9) {
-        increase = false;
-      } else if (weight < 4) {
-        increase = true;
-      }
-      if (increase) {
-        weight += 0.3;
+      if (effectN === 0) {
+        if (weight > 9) {
+          increase = false;
+        } else if (weight < 4) {
+          increase = true;
+        }
+        if (increase) {
+          weight += 0.3;
+        } else {
+          weight -= 0.1;
+        }
       } else {
-        weight -= 0.1;
+
       }
       for (var k = 0; k < shapes.length; k++) {
         stroke(strokeColors[colors[k]]);
@@ -112,7 +118,7 @@ function touchStarted() {
 
 function share() {
   var newShapesRef = shapesRef.push();
-  newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors});
+  newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors, effectN: effectN});
   alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
 }
 
@@ -132,10 +138,22 @@ function toggleBackground() {
   clear = true;
 }
 
-function toggleColor() {
+function changeColor() {
   if (strokeN < strokeColors.length - 1) {
     strokeN++;
   } else {
     strokeN = 0;
+  }
+}
+
+function drawingDone() {
+  done = true;
+}
+
+function changeEffect() {
+  if (effectN < 1) {
+    effectN++;
+  } else {
+    effectN = 0;
   }
 }
