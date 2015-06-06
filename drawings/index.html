@@ -18,17 +18,14 @@
   <script type="text/javascript">
     if (window.location.hash) {
       var drawingId = window.location.hash.substring(1);
-      console.log(drawingId);
       shapesRef.on("value", function(snapshot) {
         var drawings = snapshot.val();
         for (var key in drawings) {
           if (key === drawingId) {
             shapes = drawings[key].shapes;
             bgColor = drawings[key].bgColor;
-            strokeN = drawings[key].strokeN;
             clear = true;
             viewerMode = true;
-            console.log(shapes);
           }
         }
       }, function (errorObject) {
