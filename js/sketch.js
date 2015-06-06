@@ -69,6 +69,24 @@ function draw() {
         i++;
         j = 1;
       }
+    } else {
+      background(bgColor);
+      if (weight > 9) {
+        increase = false;
+      } else if (weight < 4) {
+        increase = true;
+      }
+      if (increase) {
+        weight += 0.3;
+      } else {
+        weight -= 0.1;
+      }
+      for (var k = 0; k < shapes.length; k++) {
+        stroke(strokeColors[colors[k]]);
+        for (var l = 1; l < shapes[k].length; l++) {
+          line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
+        }
+      }
     }
   }
 }
