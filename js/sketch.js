@@ -29,7 +29,7 @@ function draw() {
   if (bgChanged) {
     for (var k = 0; k < shapes.length; k++) {
       for (var l = 1; l < shapes[k].length; l++) {
-        line(shapes[k][l-1].x, shapes[k][l-1].y, shapes[k][l].x, shapes[k][l].y);
+        line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
       }
     }
     bgChanged = false;
@@ -37,12 +37,12 @@ function draw() {
   if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
       line(pmouseX, pmouseY, mouseX, mouseY);
-      points.push({x: mouseX, y:mouseY});
+      points.push({x: mouseX/w, y:mouseY/h});
     }
   } else if (touchIsDown && !viewerMode) {
     if (ptouchX != 0 && ptouchY != 0) {
       line(ptouchX, ptouchY, touchX, touchY);
-      points.push({x: touchX, y:touchY});
+      points.push({x: touchX/w, y:touchY/h});
     }
   } else {
     points = [];
@@ -53,7 +53,7 @@ function draw() {
     if (i < shapes.length) {
       if (j < shapes[i].length) {
         println("aa");
-        line(shapes[i][j-1].x, shapes[i][j-1].y, shapes[i][j].x, shapes[i][j].y);
+        line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
         j++;
       } else {
         i++;
