@@ -69,6 +69,17 @@ function mouseReleased() {
   }
 }
 
+function touchEnded() {
+  if (points.length != 0) {
+    shapes.push(points);
+  }
+}
+
+function touchStarted() {
+  ptouchX = touchX;
+  ptouchY = touchY;
+}
+
 function share() {
   var newShapesRef = shapesRef.push();
   newShapesRef.set({shapes: shapes, bgColor: bgColor});
