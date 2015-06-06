@@ -13,7 +13,7 @@ var increase = true;
 var strokeColors;
 var strokeN = 0;
 
-var ref = new Firebase("redrawer.firebaseIO.com");
+var ref = new Firebase("redraw.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
 function setup() {
