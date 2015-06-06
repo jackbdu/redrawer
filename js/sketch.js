@@ -37,7 +37,7 @@ function draw() {
 }
 
 function mouseReleased() {
-  if (points =! []) {
+  if (points.length != 0) {
     shapes.push(points);
   }
 }
