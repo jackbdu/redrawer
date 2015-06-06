@@ -2,6 +2,7 @@ var w = window.innerWidth;
 var h = window.innerHeight;
 var shapes = [];
 var points = [];
+var colors = [];
 var viewerMode = false;
 var i = 0;
 var j = 1;
@@ -36,6 +37,7 @@ function draw() {
   strokeWeight(weight);
   if (bgChanged) {
     for (var k = 0; k < shapes.length; k++) {
+      stroke(strokeColors[colors[k]]);
       for (var l = 1; l < shapes[k].length; l++) {
         line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
       }
@@ -59,6 +61,7 @@ function draw() {
   if (viewerMode) {
     smooth();
     if (i < shapes.length) {
+      stroke(strokeColors[colors[i]]);
       if (j < shapes[i].length) {
         line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
         j++;
@@ -73,12 +76,14 @@ function draw() {
 function mouseReleased() {
   if (points.length != 0) {
     shapes.push(points);
+    colors.push(strokeN);
   }
 }
 
 function touchEnded() {
   if (points.length != 0) {
     shapes.push(points);
+    colors.push(strokeN);
   }
 }
 
@@ -89,13 +94,14 @@ function touchStarted() {
 
 function share() {
   var newShapesRef = shapesRef.push();
-  newShapesRef.set({shapes: shapes, bgColor: bgColor});
+  newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors});
   alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
 }
 
 function clearAll() {
   clear = true;
   shapes = [];
+  colors = [];
 }
 
 function toggleBackground() {
