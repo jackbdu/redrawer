@@ -2,7 +2,7 @@ var w = window.innerWidth;
 var h = window.innerHeight;
 var shapes = [];
 var points = [];
-var onload = false;
+var viewerMode = false;
 var i = 0;
 var j = 1;
 
@@ -18,12 +18,12 @@ function setup() {
 function draw() {
   stroke(255);
   strokeWeight(5);
-  if (mouseIsPressed && !onload) {
+  if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
       line(pmouseX, pmouseY, mouseX, mouseY);
       points.push({x: mouseX, y:mouseY});
     }
-  } else if (touchIsDown) {
+  } else if (touchIsDown && !viewerMode) {
     if (ptouchX != 0 && ptouchY != 0) {
       line(ptouchX, ptouchY, touchX, touchY);
       points.push({x: touchX, y:touchY});
@@ -31,8 +31,8 @@ function draw() {
   } else {
     points = [];
   }
+  if (viewerMode) {
 
-  if (onload) {
     smooth();
     if (i < shapes.length) {
       if (j < shapes[i].length) {
