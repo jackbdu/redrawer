@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Redrawer 1.0</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <script src="http://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/sketch.js"></script>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    </style>
+  </head>
+  
+  <body>
+  </body>
+  <script type="text/javascript">
+    if (window.location.hash) {
+      var drawingId = window.location.hash.substring(1);
+      console.log(drawingId);
+      shapesRef.on("value", function(snapshot) {
+        var drawings = snapshot.val();
+        for (var key in drawings) {
+          if (key === drawingId) {
+            shapes = drawings[key].shapes;
+            console.log("what");
+          }
+        }
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+
+      onload = true;
+    }
+  </script>
+  
+
+</html>

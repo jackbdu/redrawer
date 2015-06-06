@@ -41,11 +41,7 @@ function keyPressed() {
 }
 
 function keyTyped() {
-  if (key === 'u') {
-    var newShapesRef = shapesRef.push();
-    newShapesRef.set({shapes: shapes});
-    console.log(newShapesRef.path.o[1]);
-  } else if (key === 'l') {
+  if (key === 'l') {
     shapesRef.on("value", function(snapshot) {
       var drawings = snapshot.val();
       for (var key in drawings) {
@@ -68,4 +64,10 @@ function keyReleased() {
 
 function uploadShapes(shapes) {
 
+}
+
+function share() {
+  var newShapesRef = shapesRef.push();
+  newShapesRef.set({shapes: shapes});
+  alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
 }
