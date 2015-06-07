@@ -98,6 +98,11 @@ function draw() {
           if (effectN === 1) {
             ellipse(x1+random(4)-random(4), y1+random(4)-random(4), 2+random(2), 2+random(2));
             ellipse(x2+random(4)-random(4), y2+random(4)-random(4), 2+random(2), 2+random(2));
+          } else if (effectN === 2) {
+            var offset = random(5);
+            line(x1+offset, y1+offset, x2+offset, y2+offset);
+            offset = random(5);
+            line(x1-offset, y1-offset, x2-offset, y2-offset);
           }
         }
       }
@@ -164,7 +169,7 @@ function viewEdit() {
 }
 
 function changeEffect() {
-  if (effectN < 1) {
+  if (effectN < 2) {
     effectN++;
   } else {
     effectN = 0;
