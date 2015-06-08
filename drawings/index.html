@@ -18,8 +18,10 @@
   <body>
   </body>
   <script type="text/javascript">
-    if (window.location.hash) {
+    if (window.location.search) {
       var drawingId = window.location.search.substring(1);
+      // drawingId += window.location.hash.substring(1);
+      console.log(drawingId);
       shapesRef.on("value", function(snapshot) {
         var drawings = snapshot.val();
         for (var key in drawings) {
