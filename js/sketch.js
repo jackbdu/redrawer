@@ -138,7 +138,7 @@ function touchStarted() {
 function share() {
   var newShapesRef = shapesRef.push();
   newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors, effectN: effectN});
-  alert("jackbdu.me/redrawer/drawings/#"+newShapesRef.path.o[1]);
+  alert("jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
 }
 
 function clearAll() {
