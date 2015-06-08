@@ -31,6 +31,7 @@ function setup() {
 }
 
 function draw() {
+  blockScroll();
   if (clear) {
     background(bgColor);
     clear = false;
@@ -177,8 +178,10 @@ function changeEffect() {
 }
 
 // block scrolling in iphone
-$("body").swipe({
-  swipe:function(event, direction, distance, duration, fingerCount) {
-    var swipeDirection = direction;
-  }
-});
+function blockScroll() {
+  $("body").swipe({
+    swipe:function(event, direction, distance, duration, fingerCount) {
+      var swipeDirection = direction;
+    }
+  });
+}
