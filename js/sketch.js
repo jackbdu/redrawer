@@ -124,16 +124,6 @@ function draw() {
       }
     }
   }
-
-  // if(touchIsDown) {
-
-  //   fill(255,0,0);
-  //   strokeWeight(1);
-  //   stroke(255);
-  //   textSize(30);
-  //   text(points.length.toString(), 100, 200);
-  // }
-
 }
 
 function mouseReleased() {
@@ -159,7 +149,7 @@ function touchEnded() {
 function share() {
   var newShapesRef = shapesRef.push();
   newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors, effectN: effectN});
-  alert("jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
+  window.open("http://jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
 }
 
 function clearAll() {
@@ -184,6 +174,14 @@ function changeColor() {
   } else {
     strokeN = 0;
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  bgChanged = true;
+  clear = true;
+  w = window.innerWidth;
+  h = window.innerHeight;
 }
 
 function viewEdit() {
