@@ -19,6 +19,8 @@ var view = false;
 var ref = new Firebase("redraw.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
+var currentLayer;
+
 function setup() {
   var redColor = color(255, 0, 0);
   var greenColor = color(0, 255, 0);
@@ -28,49 +30,52 @@ function setup() {
   strokeColors = new Array(lightGray, darkGray, redColor, greenColor, blueColor);
   createCanvas(w, h);
   smooth();
+  currentLayer = createGraphics(w, h);
 }
 
 function draw() {
   blockScroll();
+  noFill();
   if (clear) {
     background(bgColor);
     clear = false;
   }
-  stroke(strokeColors[strokeN]);
   strokeWeight(weight);
-  if (bgChanged) {
+  if (true) {
     for (var k = 0; k < shapes.length; k++) {
+      beginShape();
       stroke(strokeColors[colors[k]]);
-      for (var l = 1; l < shapes[k].length; l++) {
-        line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
+      for (var l = 0; l < shapes[k].length; l++) {
+        // line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
+        curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
       }
+      endShape();
     }
+    stroke(strokeColors[strokeN]);
+    beginShape();
+    for (var key in points) {
+      print(points[key]);
+      curveVertex(points[key].x*w, points[key].y*h);
+    }
+    endShape();
     bgChanged = false;
 
   }
   if (mouseIsPressed && !viewerMode) {
-    if (pmouseX != 0 || pmouseY != 0) {
-      if (points.length == 0) {
-        if (mouseY > 55) {
-          line(mouseX, mouseY, mouseX, mouseY);
-          points.push({x: mouseX/w, y:mouseY/h});
-        }
-      } else {
-        line(pmouseX, pmouseY, mouseX, mouseY);
+    if (points.length == 0) {
+      if (mouseY > 55) {
         points.push({x: mouseX/w, y:mouseY/h});
       }
+    } else {
+      points.push({x: mouseX/w, y:mouseY/h});
     }
   } else if (touchIsDown && !viewerMode) {
-    if (ptouchX != 0 && ptouchY != 0) {
-      if (points.length == 0) {
-        if (touchY > 55) {
-          line(touchX, touchY, touchX, touchY);
-          points.push({x: touchX/w, y:touchY/h});
-        }
-      } else {
-        line(ptouchX, ptouchY, touchX, touchY);
+    if (points.length == 0) {
+      if (touchY > 55) {
         points.push({x: touchX/w, y:touchY/h});
       }
+    } else {
+      points.push({x: touchX/w, y:touchY/h});
     }
   } else {
     points = [];
@@ -105,22 +110,16 @@ function draw() {
       }
       for (var k = 0; k < shapes.length; k++) {
         stroke(strokeColors[colors[k]]);
-        for (var l = 1; l < shapes[k].length; l++) {
-          var x1 = shapes[k][l-1].x*w;
-          var y1 = shapes[k][l-1].y*h;
-          var x2 = shapes[k][l].x*w;
-          var y2 = shapes[k][l].y*h;
-          line(x1, y1, x2, y2);
+        beginShape();
+        for (var l = 0; l < shapes[k].length; l++) {
+          var x = shapes[k][l].x*w;
+          var y = shapes[k][l].y*h;
+          curveVertex(x, y);
           if (effectN === 1) {
-            ellipse(x1+random(4)-random(4), y1+random(4)-random(4), 2+random(2), 2+random(2));
-            ellipse(x2+random(4)-random(4), y2+random(4)-random(4), 2+random(2), 2+random(2));
-          } else if (effectN === 2) {
-            var offset = random(5);
-            line(x1+offset, y1+offset, x2+offset, y2+offset);
-            offset = random(5);
-            line(x1-offset, y1-offset, x2-offset, y2-offset);
+            ellipse(x+random(4)-random(4), y+random(4)-random(4), 2+random(2), 2+random(2));
           }
         }
+        endShape();
       }
     }
   }
@@ -131,11 +130,6 @@ function mouseReleased() {
     shapes.push(points);
     colors.push(strokeN);
   }
-}
-
-function mousePressed() {
-  pmouseX = mouseX;
-  pmouseY = mouseY;
 }
 
 function touchEnded() {
