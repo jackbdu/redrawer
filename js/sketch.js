@@ -46,7 +46,6 @@ function draw() {
       }
     }
     bgChanged = false;
-<<<<<<< HEAD
   }
   if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
@@ -57,33 +56,6 @@ function draw() {
     if (ptouchX != 0 && ptouchY != 0) {
       line(ptouchX, ptouchY, touchX, touchY);
       points.push({x: touchX/w, y:touchY/h});
-=======
-
-  }
-  if (mouseIsPressed && !viewerMode) {
-    if (pmouseX != 0 || pmouseY != 0) {
-      if (points.length == 0) {
-        if (mouseY > 55) {
-          line(mouseX, mouseY, mouseX, mouseY);
-          points.push({x: mouseX/w, y:mouseY/h});
-        }
-      } else {
-        line(pmouseX, pmouseY, mouseX, mouseY);
-        points.push({x: mouseX/w, y:mouseY/h});
-      }
-    }
-  } else if (touchIsDown && !viewerMode) {
-    if (ptouchX != 0 && ptouchY != 0) {
-      if (points.length == 0) {
-        if (touchY > 55) {
-          line(touchX, touchY, touchX, touchY);
-          points.push({x: touchX/w, y:touchY/h});
-        }
-      } else {
-        line(ptouchX, ptouchY, touchX, touchY);
-        points.push({x: touchX/w, y:touchY/h});
-      }
->>>>>>> master
     }
   } else {
     points = [];
@@ -137,16 +109,6 @@ function draw() {
       }
     }
   }
-
-  // if(touchIsDown) {
-
-  //   fill(255,0,0);
-  //   strokeWeight(1);
-  //   stroke(255);
-  //   textSize(30);
-  //   text(points.length.toString(), 100, 200);
-  // }
-
 }
 
 function mouseReleased() {
@@ -159,7 +121,6 @@ function mouseReleased() {
 function mousePressed() {
   pmouseX = mouseX;
   pmouseY = mouseY;
-<<<<<<< HEAD
 }
 
 function touchEnded() {
@@ -180,24 +141,6 @@ function share() {
   alert("jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
 }
 
-=======
-}
-
-function touchEnded() {
-  touchIsDown = false;
-  if (points.length != 0) {
-    shapes.push(points);
-    colors.push(strokeN);
-  }
-}
-
-function share() {
-  var newShapesRef = shapesRef.push();
-  newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors, effectN: effectN});
-  alert("jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
-}
-
->>>>>>> master
 function clearAll() {
   clear = true;
   shapes = [];
