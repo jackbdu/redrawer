@@ -5,7 +5,7 @@ var points = [];
 var colors = [];
 var viewerMode = false;
 var i = 0;
-var j = 1;
+var j = 0;
 var clear = true;
 var bgColor = 0;
 var bgChanged = false;
@@ -83,17 +83,31 @@ function draw() {
 
   if (viewerMode || view) {
     smooth();
+    background(bgColor);
     if (i < shapes.length && !view) {
-      stroke(strokeColors[colors[i]]);
-      if (j < shapes[i].length) {
-        line(shapes[i][j-1].x*w, shapes[i][j-1].y*h, shapes[i][j].x*w, shapes[i][j].y*h);
+      for (var k = 0; k <= i; k++) {
+        smooth();
+        beginShape();
+        stroke(strokeColors[colors[k]]);
+        if (k == i) {
+          for (var l = 0; l <= j; l++) {
+            curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
+          }
+        } else {
+          for (var l = 0; l < shapes[k].length; l++) {
+            curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
+          }
+        }
+        endShape();
+      }
+      if (j < shapes[i].length - 1) {
         j++;
       } else {
         i++;
-        j = 1;
+        j = 0;
       }
+      endShape();
     } else {
-      background(bgColor);
       if (effectN === 0) {
         if (weight > 9) {
           increase = false;
@@ -110,6 +124,7 @@ function draw() {
       }
       for (var k = 0; k < shapes.length; k++) {
         stroke(strokeColors[colors[k]]);
+        smooth();
         beginShape();
         for (var l = 0; l < shapes[k].length; l++) {
           var x = shapes[k][l].x*w;
@@ -183,7 +198,7 @@ function viewEdit() {
 }
 
 function changeEffect() {
-  if (effectN < 2) {
+  if (effectN < 1) {
     effectN++;
   } else {
     effectN = 0;
