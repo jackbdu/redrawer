@@ -19,8 +19,6 @@ var view = false;
 var ref = new Firebase("redraw.firebaseIO.com");
 var shapesRef = ref.child("drawings");
 
-var currentLayer;
-
 function setup() {
   var redColor = color(255, 0, 0);
   var greenColor = color(0, 255, 0);
@@ -30,7 +28,7 @@ function setup() {
   strokeColors = new Array(lightGray, darkGray, redColor, greenColor, blueColor);
   createCanvas(w, h);
   // smooth();
-  currentLayer = createGraphics(w, h);
+  noSmooth();
 }
 
 function draw() {
@@ -53,7 +51,6 @@ function draw() {
     stroke(strokeColors[strokeN]);
     beginShape();
     for (var key in points) {
-      print(points[key]);
       curveVertex(points[key].x*w, points[key].y*h);
     }
     endShape();
@@ -182,6 +179,8 @@ function changeColor() {
   } else {
     strokeN = 0;
   }
+  var theRGBA = strokeColors[strokeN].rgba;
+  $('.color').css('background-color', 'rgb('+theRGBA[0]+','+theRGBA[1]+','+theRGBA[2]+')');
 }
 
 function windowResized() {
