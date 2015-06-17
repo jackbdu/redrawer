@@ -46,16 +46,31 @@ function draw() {
       }
     }
     bgChanged = false;
+
   }
   if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
-      line(pmouseX, pmouseY, mouseX, mouseY);
-      points.push({x: mouseX/w, y:mouseY/h});
+      if (points.length == 0) {
+        if (mouseY > 55) {
+          line(mouseX, mouseY, mouseX, mouseY);
+          points.push({x: mouseX/w, y:mouseY/h});
+        }
+      } else {
+        line(pmouseX, pmouseY, mouseX, mouseY);
+        points.push({x: mouseX/w, y:mouseY/h});
+      }
     }
   } else if (touchIsDown && !viewerMode) {
     if (ptouchX != 0 && ptouchY != 0) {
-      line(ptouchX, ptouchY, touchX, touchY);
-      points.push({x: touchX/w, y:touchY/h});
+      if (points.length == 0) {
+        if (touchY > 55) {
+          line(touchX, touchY, touchX, touchY);
+          points.push({x: touchX/w, y:touchY/h});
+        }
+      } else {
+        line(ptouchX, ptouchY, touchX, touchY);
+        points.push({x: touchX/w, y:touchY/h});
+      }
     }
   } else {
     points = [];
@@ -109,6 +124,16 @@ function draw() {
       }
     }
   }
+
+  // if(touchIsDown) {
+
+  //   fill(255,0,0);
+  //   strokeWeight(1);
+  //   stroke(255);
+  //   textSize(30);
+  //   text(points.length.toString(), 100, 200);
+  // }
+
 }
 
 function mouseReleased() {
@@ -124,15 +149,11 @@ function mousePressed() {
 }
 
 function touchEnded() {
+  touchIsDown = false;
   if (points.length != 0) {
     shapes.push(points);
     colors.push(strokeN);
   }
-}
-
-function touchStarted() {
-  ptouchX = touchX;
-  ptouchY = touchY;
 }
 
 function share() {
