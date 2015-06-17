@@ -28,8 +28,12 @@
 			position:fixed;
 			top:0;
 			width:100%;
-			overflow: auto;
+			overflow-x: auto;
 			overflow-y: hidden;
+		}
+
+		header div {
+			width: 400px;
 		}
 		span {
 			margin: 10px 2px;
@@ -46,7 +50,7 @@
 		  color: #ffffff;
 		  font-size: 20px;
 		  background: #3498db;
-		  padding: 10px 25px 10px 25px;
+		  padding: 10px 24px 10px 24px;
 		  text-decoration: none;
 		  top: 5px;
 		}
@@ -79,24 +83,26 @@
 	
 	<body>
 	<header>
-		<span>
-			<a class="btn share" onclick="share();"></a>
-		</span>
-		<span>
-			<a class="btn clear" onclick="clearAll();"></a>
-		</span>
-		<span>
-			<a class="btn background" onclick="toggleBackground();"></a>
-		</span>
-		<span>
-			<a class="btn color" onclick="changeColor();"></a>
-		</span>
-		<span>
-			<a class="btn view" onclick="viewEdit();"></a>
-		</span>
-		<span>
-			<a class="btn effect" onclick="changeEffect();"></a>
-		</span>
+		<div>
+			<span>
+				<a class="btn share" onclick="share();"></a>
+			</span>
+			<span>
+				<a class="btn clear" onclick="clearAll();"></a>
+			</span>
+			<span>
+				<a class="btn background" onclick="toggleBackground();"></a>
+			</span>
+			<span>
+				<a class="btn color" onclick="changeColor();"></a>
+			</span>
+			<span>
+				<a class="btn view" onclick="viewEdit();"></a>
+			</span>
+			<span>
+				<a class="btn effect" onclick="changeEffect();"></a>
+			</span>
+		</div>
 	</header>
 	</body>
 	
