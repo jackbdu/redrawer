@@ -149,7 +149,7 @@ function touchEnded() {
 function share() {
   var newShapesRef = shapesRef.push();
   newShapesRef.set({shapes: shapes, bgColor: bgColor, colors: colors, effectN: effectN});
-  alert("jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
+  window.open("http://jackbdu.me/redrawer/drawings/?"+newShapesRef.path.o[1]);
 }
 
 function clearAll() {
