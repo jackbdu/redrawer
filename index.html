@@ -56,7 +56,7 @@
 		}
 
 		.btn:hover {
-		  background-color: #ddd;
+/*		  background-color: #ddd;*/
 		  text-decoration: none;
 		  cursor: hand;
 		}
@@ -69,8 +69,32 @@
 		.background {
 		  background: #ccc url("icons/mountain.png") no-repeat center;
 		}
+		.color-btn {
+		  background: url("icons/color.png") no-repeat center;
+		}
 		.color {
-		  background: #ccc url("icons/color.png") no-repeat center;
+		  background: #ccc;
+		  position: absolute;
+		  top: -30px;
+		  left: 0;
+		  height: 23px;
+		  z-index: -2;
+		}
+		.color-btn:hover {
+		  background-color: rgba(0,0,0,0);
+		}
+		.color:hover {
+		  background-color: #ddd;
+		}
+		#color {
+		  height: 14px;
+		  width: 28px;
+		  background-color: #eee;
+		  border-radius: 10px 10px 1px 1px;
+		  position: absolute;
+		  top:-12px;
+		  left:8px;
+		  z-index: -1;
 		}
 		.view {
 		  background: #ccc url("icons/eye.png") no-repeat center;
@@ -94,7 +118,9 @@
 				<a class="btn background" onclick="toggleBackground();"></a>
 			</span>
 			<span>
-				<a class="btn color" onclick="changeColor();"></a>
+				<a class="btn color"></a>
+				<a class="btn color-btn" onclick="changeColor();"></a>
+				<span id="color"></span>
 			</span>
 			<span>
 				<a class="btn view" onclick="viewEdit();"></a>

@@ -179,7 +179,7 @@ function changeColor() {
     strokeN = 0;
   }
   var theRGBA = strokeColors[strokeN].rgba;
-  $('.color').css('background-color', 'rgb('+theRGBA[0]+','+theRGBA[1]+','+theRGBA[2]+')');
+  $('#color').css('background-color', 'rgb('+theRGBA[0]+','+theRGBA[1]+','+theRGBA[2]+')');
 }
 
 function windowResized() {
