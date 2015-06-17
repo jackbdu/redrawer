@@ -29,7 +29,7 @@ function setup() {
   var lightGray = color(200, 200, 200);
   strokeColors = new Array(lightGray, darkGray, redColor, greenColor, blueColor);
   createCanvas(w, h);
-  smooth();
+  // smooth();
   currentLayer = createGraphics(w, h);
 }
 
@@ -46,7 +46,6 @@ function draw() {
       beginShape();
       stroke(strokeColors[colors[k]]);
       for (var l = 0; l < shapes[k].length; l++) {
-        // line(shapes[k][l-1].x*w, shapes[k][l-1].y*h, shapes[k][l].x*w, shapes[k][l].y*h);
         curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
       }
       endShape();
@@ -82,11 +81,11 @@ function draw() {
   }
 
   if (viewerMode || view) {
-    smooth();
+    // smooth();
     background(bgColor);
     if (i < shapes.length && !view) {
       for (var k = 0; k <= i; k++) {
-        smooth();
+        // smooth();
         beginShape();
         stroke(strokeColors[colors[k]]);
         if (k == i) {
@@ -124,7 +123,7 @@ function draw() {
       }
       for (var k = 0; k < shapes.length; k++) {
         stroke(strokeColors[colors[k]]);
-        smooth();
+        // smooth();
         beginShape();
         for (var l = 0; l < shapes[k].length; l++) {
           var x = shapes[k][l].x*w;
