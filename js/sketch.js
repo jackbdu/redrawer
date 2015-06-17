@@ -124,16 +124,6 @@ function draw() {
       }
     }
   }
-
-  // if(touchIsDown) {
-
-  //   fill(255,0,0);
-  //   strokeWeight(1);
-  //   stroke(255);
-  //   textSize(30);
-  //   text(points.length.toString(), 100, 200);
-  // }
-
 }
 
 function mouseReleased() {
@@ -184,6 +174,14 @@ function changeColor() {
   } else {
     strokeN = 0;
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  bgChanged = true;
+  clear = true;
+  w = window.innerWidth;
+  h = window.innerHeight;
 }
 
 function viewEdit() {
