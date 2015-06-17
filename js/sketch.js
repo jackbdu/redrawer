@@ -102,7 +102,6 @@ function draw() {
         i++;
         j = 0;
       }
-      endShape();
     } else {
       if (effectN === 0) {
         if (weight > 9) {
