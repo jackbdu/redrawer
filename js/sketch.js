@@ -51,20 +51,26 @@ function draw() {
   if (mouseIsPressed && !viewerMode) {
     if (pmouseX != 0 || pmouseY != 0) {
       if (points.length == 0) {
-        line(mouseX, mouseY, mouseX, mouseY);
+        if (mouseY > 55) {
+          line(mouseX, mouseY, mouseX, mouseY);
+          points.push({x: mouseX/w, y:mouseY/h});
+        }
       } else {
         line(pmouseX, pmouseY, mouseX, mouseY);
+        points.push({x: mouseX/w, y:mouseY/h});
       }
-      points.push({x: mouseX/w, y:mouseY/h});
     }
   } else if (touchIsDown && !viewerMode) {
     if (ptouchX != 0 && ptouchY != 0) {
       if (points.length == 0) {
-        line(touchX, touchY, touchX, touchY);
+        if (touchY > 55) {
+          line(touchX, touchY, touchX, touchY);
+          points.push({x: touchX/w, y:touchY/h});
+        }
       } else {
         line(ptouchX, ptouchY, touchX, touchY);
+        points.push({x: touchX/w, y:touchY/h});
       }
-      points.push({x: touchX/w, y:touchY/h});
     }
   } else {
     points = [];
