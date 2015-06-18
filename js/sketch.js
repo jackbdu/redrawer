@@ -6,9 +6,7 @@ var colors = [];
 var viewerMode = false;
 var i = 0;
 var j = 0;
-var clear = true;
 var bgColor = 0;
-var bgChanged = false;
 var weight = 5;
 var increase = true;
 var strokeColors;
@@ -34,29 +32,30 @@ function setup() {
 function draw() {
   blockScroll();
   noFill();
-  if (clear) {
-    background(bgColor);
-    clear = false;
-  }
+  background(bgColor);
+
   strokeWeight(weight);
-  if (true) {
-    for (var k = 0; k < shapes.length; k++) {
-      beginShape();
-      stroke(strokeColors[colors[k]]);
-      for (var l = 0; l < shapes[k].length; l++) {
+  for (var k = 0; k < shapes.length; k++) {
+    beginShape();
+    stroke(strokeColors[colors[k]]);
+    for (var l = 0; l < shapes[k].length; l++) {
+      if (l==0 || l==shapes[k].length-1) {
         curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
       }
-      endShape();
-    }
-    stroke(strokeColors[strokeN]);
-    beginShape();
-    for (var key in points) {
-      curveVertex(points[key].x*w, points[key].y*h);
+      curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
     }
     endShape();
-    bgChanged = false;
-
   }
+  stroke(strokeColors[strokeN]);
+  beginShape();
+  for (var key in points) {
+    if (key==0 || key==points.length-1) {
+      curveVertex(points[key].x*w, points[key].y*h);
+    }
+    curveVertex(points[key].x*w, points[key].y*h);
+  }
+  endShape();
+
   if (mouseIsPressed && !viewerMode) {
     if (points.length == 0) {
       if (mouseY > 55) {
@@ -87,7 +86,14 @@ function draw() {
         stroke(strokeColors[colors[k]]);
         if (k == i) {
           for (var l = 0; l <= j; l++) {
+            if (l==0 || l==j) {
+              curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
+            }
             curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
+            if (0 == j) {
+              curveVertex(shapes[k][l].x*w+0.5, shapes[k][l].y*h+0.5);
+              curveVertex(shapes[k][l].x*w+0.5, shapes[k][l].y*h+0.5);
+            }
           }
         } else {
           for (var l = 0; l < shapes[k].length; l++) {
@@ -124,6 +130,9 @@ function draw() {
         for (var l = 0; l < shapes[k].length; l++) {
           var x = shapes[k][l].x*w;
           var y = shapes[k][l].y*h;
+          if (l==0 || l==shapes[k].length-1) {
+            curveVertex(x, y);
+          }
           curveVertex(x, y);
           if (effectN === 1) {
             ellipse(x+random(4)-random(4), y+random(4)-random(4), 2+random(2), 2+random(2));
@@ -157,7 +166,6 @@ function share() {
 }
 
 function clearAll() {
-  clear = true;
   shapes = [];
   colors = [];
 }
@@ -168,8 +176,6 @@ function toggleBackground() {
   } else {
     bgColor = 0;
   }
-  bgChanged = true;
-  clear = true;
 }
 
 function changeColor() {
@@ -184,8 +190,6 @@ function changeColor() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  bgChanged = true;
-  clear = true;
   w = window.innerWidth;
   h = window.innerHeight;
 }
