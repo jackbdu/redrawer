@@ -98,7 +98,7 @@ function draw() {
         } else {
           for (var l = 0; l < shapes[k].length; l++) {
             curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
-            if (l==0 || l==shapes[k].length) {
+            if (l==0 || l==shapes[k].length-1) {
               curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
             }
             curveVertex(shapes[k][l].x*w, shapes[k][l].y*h);
