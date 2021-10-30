@@ -1,6 +1,6 @@
 # Redrawer
 
-A web application that creates sharable redraws of its users' drawings.
+A web application that allows its users to create sketches and share the process.
 
 # Motivation
 
